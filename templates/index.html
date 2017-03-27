@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+    <script type="text/javascript">
+    $( document ).ready(function() {
+
+        $('.products').on('click', '.link', function (event) {
+            event.preventDefault();
+            $.ajax({
+            url: $(this).data("url"),
+            type: "POST",
+            dataType: 'json',
+            data: { id: $(this).data('item'), csrfmiddlewaretoken: '{{ csrf_token }}' },
+            });
+        })
+    });
+    </script>
+
+<div class="products">
+{% for product in products %}
+
+    <p>{{ product.name }}
+        {{ product.price }}
+        <a class="link" data-url="{% url 'cart_add' product.id %}" data-item="{{ product.id }}" href="{% url 'cart_add' product.id %}">add to cart</a></p>
+
+{% endfor %}
+    <p><a class="link" data-item="product.id" data-url="/cart/add/4" href="/cart/add/4">add to cart</a></p>
+
+</div>
+
+
+{% endblock content %}

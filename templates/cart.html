@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% load poll_extras %}
+{% block content %}
+
+
+{% for id ,count in cart_list.items %}
+    <p>Name: {{ id|product_name }}  x  {{ count }}, sum: {{ id|product_sum:count }}</p>
+{% endfor %}
+
+
+{% endblock content %}
